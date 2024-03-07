@@ -36,27 +36,34 @@ export const register = (req, res) => {
 
       let q = "";
 
-      if (studentData.length) {
-        q =
-          "insert into auth(`student_id`, `user_name`, `email`, `password`, `account_type`, `join_date`) values(?)";
-      } else {
-        q =
-          "insert into auth(`admin_id`, `user_name`, `email`, `password`, `account_type`, `join_date`) values(?)";
-      }
-
-      const values = [
+      db.query(
+        "select * from student where student_id = ?",
         req.body.id,
-        req.body.name,
-        req.body.email,
-        hash,
-        "free",
-        getDate(),
-      ];
+        (err, sdata) => {
+          if (err) return res.json(err);
+          if (sdata.length) {
+            q =
+              "insert into auth(`student_id`, `user_name`, `email`, `password`, `account_type`, `join_date`) values(?)";
+          } else {
+            q =
+              "insert into auth(`admin_id`, `user_name`, `email`, `password`, `account_type`, `join_date`) values(?)";
+          }
 
-      db.query(q, [values], (err, data) => {
-        if (err) return res.json(err);
-        return res.status(200).json(data);
-      });
+          const values = [
+            req.body.id,
+            req.body.name,
+            req.body.email,
+            hash,
+            "free",
+            getDate(),
+          ];
+
+          db.query(q, [values], (err, data) => {
+            if (err) return res.json(err);
+            return res.status(200).json(data);
+          });
+        }
+      );
     });
   });
 };
