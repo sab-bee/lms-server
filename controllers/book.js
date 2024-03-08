@@ -10,7 +10,7 @@ export const add = (req, res) => {
 
   db.query(query, [values], (err, data) => {
     if (err) return res.json(err);
-    return res.status(200).json(data);
+    return res.status(200).json({ ...data, message: "added" });
   });
 };
 
@@ -24,7 +24,7 @@ export const remove = (req, res) => {
     const query = "delete from book where book_id = ?";
     db.query(query, req.body.book_id, (err, data) => {
       if (err) return res.json(err);
-      return res.json({ message: "deleted book" });
+      return res.json({ ...data, message: "deleted book" });
     });
   });
 };

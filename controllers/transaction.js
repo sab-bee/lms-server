@@ -9,7 +9,7 @@ export const request = (req, res) => {
   const values = [uuid(), student_id, book_id, "pending", 0];
   db.query(query, [values], (err, data) => {
     if (err) return res.json(err);
-    return res.status(200).json({ message: "requested" });
+    return res.status(200).json({ ...data, message: "requested" });
   });
 };
 

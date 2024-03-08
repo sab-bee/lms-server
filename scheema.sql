@@ -13,6 +13,7 @@ create table auth(
   admin_id varchar(8),
   user_name varchar(45),
   email varchar(45),
+  phone varchar(11),
   password varchar(255),
   account_type varchar(10),
   join_date date,
@@ -26,6 +27,7 @@ create table book(
   author varchar(45),
   genre varchar(10),
   edition varchar(45),
+  image varchar(255),
   stock int,
   borrow_count int,
   primary key (book_id)
@@ -76,7 +78,7 @@ SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE stude
 SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE student_id = '20245678' && status='approved');
 SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE student_id = '20245678' && status='denied');
 
-or
+-- or
 
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='pending';
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='approved';
