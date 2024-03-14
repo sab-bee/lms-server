@@ -4,19 +4,14 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 function getDate() {
-  // Create a new Date object to get the current date
   const currentDate = new Date();
-
-  // Get the current year, month, and day
   const year = currentDate.getFullYear();
   // JavaScript months are zero-based, so we add 1 to get the correct month
   const month = ("0" + (currentDate.getMonth() + 1)).slice(-2); // Adding leading zero if necessary
   const day = ("0" + currentDate.getDate()).slice(-2); // Adding leading zero if necessary
 
   // Construct the formatted date string in the desired format
-  const formattedDate = `${year}-${month}-${day}`;
-
-  return formattedDate;
+  return `${year}-${month}-${day}`;
 }
 
 export const register = (req, res) => {
@@ -24,12 +19,12 @@ export const register = (req, res) => {
   const query2 = "select * from auth where admin_id = ?";
 
   db.query(query1, req.body.id, (err, studentData) => {
-    if (err) return res.json(err);
+    if (err) return res.json({ err });
     db.query(query2, req.body.id, (err, adminData) => {
       if (err) return res.json(err);
 
       if (studentData.length || adminData.length)
-        return res.status(409).json("user already exist");
+        return res.status(409).json({ message: "you already have an account" });
 
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
@@ -40,7 +35,7 @@ export const register = (req, res) => {
         "select * from student where student_id = ?",
         req.body.id,
         (err, sdata) => {
-          if (err) return res.json(err);
+          if (err) return res.json({ err });
           if (sdata.length) {
             q =
               "insert into auth(`student_id`, `user_name`, `email`, `password`, `account_type`, `join_date`) values(?)";
@@ -59,7 +54,7 @@ export const register = (req, res) => {
           ];
 
           db.query(q, [values], (err, data) => {
-            if (err) return res.json(err);
+            if (err) return res.status(404).json(err);
             return res.status(200).json({ ...data, message: "registered" });
           });
         }
@@ -79,7 +74,7 @@ export const login = (req, res) => {
       if (err) return res.json(err);
       const data = studentData.length ? studentData : adminData;
       if (data.length === 0)
-        return res.status(404).json({ messasge: "user not found" });
+        return res.status(404).json({ message: "you don't have any account" });
 
       // check pass if user exist
       const isPasswordCorrect = bcrypt.compareSync(
@@ -102,11 +97,11 @@ export const login = (req, res) => {
 
       // send information except the hashed password as coockie
       res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
+        // .cookie("access_token", token, {
+        //   httpOnly: true,
+        // })
         .status(200)
-        .json(other);
+        .json({ ...other, access_token: token });
     });
   });
 };
