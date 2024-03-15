@@ -16,6 +16,7 @@ create table auth(
   phone varchar(11),
   password varchar(255),
   account_type varchar(10),
+  otp varchar(6), 
   join_date date,
   foreign key (student_id) references student(student_id),
   foreign key (admin_id) references admin(admin_id)
