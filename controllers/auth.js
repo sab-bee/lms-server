@@ -182,12 +182,11 @@ export const otpCheck = (req, res) => {
 
 export const setPass = (req, res) => {
   const query = `UPDATE auth SET password = ? WHERE email = ?`;
-
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
 
-  db.query(query, [hash, req.body.email], (err, data)=> {
+  db.query(query, [hash, req.body.email], (err, data) => {
     if (err) return res.status(400).json(err);
-    
+    return res.status(200).json(data);
   });
 };
