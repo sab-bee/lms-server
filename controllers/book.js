@@ -3,10 +3,20 @@ import { v4 as uuid } from "uuid";
 
 export const add = (req, res) => {
   const query =
-    "insert into book(`book_id`,`title`, `author`,`genre`,`edition`,`stock`, `borrow_count`) values(?)";
+    "insert into book(`book_id`,`title`, `author`,`genre`,`edition`,`stock`, `borrow_count`, `image`) values(?)";
 
-  const { title, author, genre, edition, stock, borrow_count } = req.body;
-  const values = [uuid(), title, author, genre, edition, stock, borrow_count];
+  const { title, author, genre, edition, stock, borrow_count, image } =
+    req.body;
+  const values = [
+    uuid(),
+    title,
+    author,
+    genre,
+    edition,
+    stock,
+    borrow_count,
+    image,
+  ];
 
   db.query(query, [values], (err, data) => {
     if (err) return res.json(err);
@@ -26,6 +36,34 @@ export const remove = (req, res) => {
       if (err) return res.json(err);
       return res.json({ ...data, message: "deleted book" });
     });
+  });
+};
+
+export const search = (req, res) => {
+  const query = "select * from book where title like ? or author like ?";
+  db.query(
+    query,
+    [`%${req.body.query}%`, `%${req.body.query}%`],
+    (err, data) => {
+      if (err) return res.json(err);
+      if (data.length) {
+        return res.status(200).json(data);
+      } else {
+        return res.status(404).json({ message: "no book found" });
+      }
+    }
+  );
+};
+
+export const getbookbyid = (req, res) => {
+  const query = "select * from book where book_id = ?";
+  db.query(query, req.body.book_id, (err, data) => {
+    if (err) return res.json(err);
+    if (data.length) {
+      return res.status(200).json(data[0]);
+    } else {
+      return res.status(404).json({ message: "no book found" });
+    }
   });
 };
 

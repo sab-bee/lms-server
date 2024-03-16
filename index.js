@@ -18,5 +18,5 @@ app.use("/api/book", bookRoute);
 app.use("/api/transaction", transactionRoute);
 
 app.listen(port, () => {
-  console.log("server is running");
+  console.log("server is running on port " + port);
 });
