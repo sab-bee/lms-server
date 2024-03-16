@@ -153,6 +153,14 @@ export const verifyEmail = (req, res) => {
         db.query(query, [code, req.body.email], (err, data) => {
           if (err) {
             console.log(err);
+          } else {
+            setTimeout(() => {
+              db.query(query, [null, req.body.email], (err, data) => {
+                if (err) {
+                  console.log(err);
+                }
+              });
+            }, 60000);
           }
         });
 
