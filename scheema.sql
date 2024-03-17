@@ -23,12 +23,13 @@ create table auth(
 );
 
 create table book(
-  book_id varchar(32),
+  book_id int(11),
   title varchar(45),
   author varchar(45),
   genre varchar(10),
   edition varchar(45),
   image varchar(255),
+  desc text,
   stock int,
   borrow_count int,
   primary key (book_id)
@@ -38,7 +39,7 @@ create table transaction(
   transaction_id varchar(32),
   student_id varchar(8),
   admin_id varchar(8),
-  book_id varchar(32),
+  book_id int(11),
   issue date,
   due date,
   status ENUM('pending','approved','denied'),

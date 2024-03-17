@@ -1,0 +1,95 @@
+[
+  {
+    "title": "JavaScript: The Good Parts",
+    "author": "Douglas Crockford",
+    "genre": "coding",
+    "edition": "1st",
+    "description": "Describes the reliable features of JavaScript, covering such topics as syntax, objects, functions, arrays, regular expressions, inheritance, and methods.",
+    "stock": 15,
+    "image": "https://m.media-amazon.com/images/I/41w+nN8Kg0L._SY445_SX342_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "author": "Robert C. Martin",
+    "genre": "coding",
+    "edition": "1st",
+    "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+    "stock": 8,
+    "image": "https://m.media-amazon.com/images/I/41bOkXnNBjL._SY445_SX342_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    "genre": "coding",
+    "edition": "1st",
+    "description": "Capturing a wealth of experience about the design of object-oriented software, four top-notch designers present a catalog of simple and succinct solutions to commonly occurring design problems. Previously undocumented, these 23 patterns allow designers to create more flexible, elegant, and ultimately reusable designs without having to rediscover the design solutions themselves. The authors begin by describing what patterns are and how they can help you design object-oriented software. They then go on to systematically name, explain, evaluate, and catalog recurring designs in object-oriented systems. With Design Patterns as your guide, you will learn how these important patterns fit into the software development process, and how you can leverage them to solve your own design problems most efficiently.",
+    "stock": 12,
+    "image": "https://m.media-amazon.com/images/I/51szD9HC9pL._SX342_SY445_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Python Crash Course",
+    "author": "Eric Matthes",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 20,
+    "image": "https://m.media-amazon.com/images/I/51AKC8n1oNL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Head First Java",
+    "author": "Kathy Sierra, Bert Bates",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 10,
+    "image": "https://m.media-amazon.com/images/I/91GZwzJTloL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 18,
+    "image": "https://m.media-amazon.com/images/I/51wK8LOuPxL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Learning React: A Hands-On Guide to Building Web Applications Using React and Redux",
+    "author": "Kirupa Chinnathambi",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 14,
+    "image": "https://m.media-amazon.com/images/I/51U8JgsKtYL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Algorithms",
+    "author": "Robert Sedgewick, Kevin Wayne",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 22,
+    "image": "https://m.media-amazon.com/images/I/81tB4wA46wL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "HTML and CSS: Design and Build Websites",
+    "author": "Jon Duckett",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 16,
+    "image": "https://m.media-amazon.com/images/I/41VcJKSXruL._SY346_.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "author": "David Thomas, Andrew Hunt",
+    "genre": "coding",
+    "edition": "1st",
+    "stock": 11,
+    "image": "https://m.media-amazon.com/images/I/41+eLMJb2PL._SY346_.jpg",
+    "borrow_count": 0
+  }
+]

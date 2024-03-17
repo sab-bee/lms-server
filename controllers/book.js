@@ -1,18 +1,26 @@
 import { db } from "../db.js";
-import { v4 as uuid } from "uuid";
 
 export const add = (req, res) => {
   const query =
-    "insert into book(`book_id`,`title`, `author`,`genre`,`edition`,`stock`, `borrow_count`, `image`) values(?)";
+    "insert into book(`title`, `author`,`genre`,`edition`,`description`,`stock`, `borrow_count`, `image`) values(?)";
 
-  const { title, author, genre, edition, stock, borrow_count, image } =
-    req.body;
-  const values = [
-    uuid(),
+  const {
     title,
     author,
     genre,
     edition,
+    stock,
+    borrow_count,
+    image,
+    description,
+  } = req.body;
+
+  const values = [
+    title,
+    author,
+    genre,
+    edition,
+    description,
     stock,
     borrow_count,
     image,
@@ -63,6 +71,29 @@ export const getbookbyid = (req, res) => {
       return res.status(200).json(data[0]);
     } else {
       return res.status(404).json({ message: "no book found" });
+    }
+  });
+};
+
+export const list = (req, res) => {
+  let query = "";
+  if (req.query.type === "latest") {
+    query = `SELECT *
+    FROM book
+    ORDER BY book_id DESC
+    LIMIT ?;`;
+  }
+  if (req.query.type === "top") {
+    query = `SELECT *
+    FROM book
+    ORDER BY borrow_count DESC
+    LIMIT ?;`;
+  }
+
+  db.query(query, Number(req.query.limit), (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length) {
+      return res.status(200).json(data);
     }
   });
 };

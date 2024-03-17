@@ -4,6 +4,7 @@ import {
   borrowed,
   denied,
   getbookbyid,
+  list,
   pending,
   remove,
   search,
@@ -18,5 +19,6 @@ router.get("/pending/:studentId", verifyJWT, pending);
 router.get("/denied/:studentId", verifyJWT, denied);
 router.post("/search", verifyJWT, search);
 router.post("/getbookbyid", verifyJWT, getbookbyid);
+router.get("/list", verifyJWT, list);
 
 export default router;
