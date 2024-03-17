@@ -84,4 +84,7 @@ SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE stude
 
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='pending';
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='approved';
--- action by admin
+
+
+-- includes command
+select  * from book where title like ? or author like ?

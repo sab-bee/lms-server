@@ -1,5 +1,9 @@
 import { db } from "../db.js";
 
+/**
+ * add book to the BOOK TABLE
+ * action by - ADMIN
+ */
 export const add = (req, res) => {
   const query =
     "insert into book(`title`, `author`,`genre`,`edition`,`description`,`stock`, `borrow_count`, `image`) values(?)";
@@ -27,46 +31,58 @@ export const add = (req, res) => {
   ];
 
   db.query(query, [values], (err, data) => {
-    if (err) return res.json(err);
+    if (err) return res.status(400).json(err);
     return res.status(200).json({ ...data, message: "added" });
   });
 };
 
+/**
+ * remove book to the BOOK TABLE
+ * action by - ADMIN
+ */
+
 export const remove = (req, res) => {
   const query = "select * from book where book_id = ?";
   db.query(query, req.body.book_id, (err, data) => {
-    if (err) return res.json(err);
+    if (err) return res.status(400).json(err);
     if (data.length === 0)
       return res.status(404).json({ messasge: "book not found" });
 
     const query = "delete from book where book_id = ?";
     db.query(query, req.body.book_id, (err, data) => {
-      if (err) return res.json(err);
+      if (err) return res.status(400).json(err);
       return res.json({ ...data, message: "deleted book" });
     });
   });
 };
 
+/**
+ * search book by keyword
+ * action by - USER
+ */
 export const search = (req, res) => {
   const query = "select * from book where title like ? or author like ?";
-  db.query(
-    query,
-    [`%${req.body.query}%`, `%${req.body.query}%`],
-    (err, data) => {
-      if (err) return res.json(err);
-      if (data.length) {
-        return res.status(200).json(data);
-      } else {
-        return res.status(404).json({ message: "no book found" });
-      }
+  const value = `%${req.body.query}%`;
+  db.query(query, [value, value], (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length) {
+      return res.status(200).json(data);
+    } else {
+      return res.status(404).json({ message: "no book found" });
     }
-  );
+  });
 };
 
+/**
+ * get book using book id
+ * this for single product show of
+ * borrow page
+ * action by - USER
+ */
 export const getbookbyid = (req, res) => {
   const query = "select * from book where book_id = ?";
   db.query(query, req.body.book_id, (err, data) => {
-    if (err) return res.json(err);
+    if (err) return res.status(400).json(err);
     if (data.length) {
       return res.status(200).json(data[0]);
     } else {
@@ -75,6 +91,10 @@ export const getbookbyid = (req, res) => {
   });
 };
 
+/**
+ * sends all the books for LIBRARY page
+ * action by - USER
+ */
 export const list = (req, res) => {
   let query = "";
   if (req.query.type === "latest") {
@@ -98,6 +118,10 @@ export const list = (req, res) => {
   });
 };
 
+/**
+ * gives list of borrowed books by the user
+ * action by - USER
+ */
 export const borrowed = (req, res) => {
   const student_id = req.params.studentId;
 
@@ -109,7 +133,7 @@ export const borrowed = (req, res) => {
   `;
 
   db.query(query, [student_id], (err, data) => {
-    if (err) return err;
+    if (err) return res.status(400).json(err);
     if (data.length === 0) {
       return res.status(404).json({ error: "No book borrowed by the student" });
     }
@@ -117,6 +141,10 @@ export const borrowed = (req, res) => {
   });
 };
 
+/**
+ * gives list of pending books by the user
+ * action by - USER
+ */
 export const pending = (req, res) => {
   const student_id = req.params.studentId;
 
@@ -128,7 +156,7 @@ export const pending = (req, res) => {
   `;
 
   db.query(query, [student_id], (err, data) => {
-    if (err) return err;
+    if (err) return res.status(400).json(err);
     if (data.length === 0) {
       return res.status(404).json({ error: "No book pending for the student" });
     }
@@ -136,6 +164,10 @@ export const pending = (req, res) => {
   });
 };
 
+/**
+ * gives list of rejected request books by the user
+ * action by - USER
+ */
 export const denied = (req, res) => {
   const student_id = req.params.studentId;
 
@@ -147,7 +179,7 @@ export const denied = (req, res) => {
   `;
 
   db.query(query, [student_id], (err, data) => {
-    if (err) return err;
+    if (err) return res.status(400).json(err);
     if (data.length === 0) {
       return res.status(404).json({ error: "No book denied for the student" });
     }
