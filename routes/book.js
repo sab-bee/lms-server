@@ -1,11 +1,8 @@
 import express from "express";
 import {
   add,
-  borrowed,
-  denied,
   getbookbyid,
   list,
-  pending,
   remove,
   search,
 } from "../controllers/book.js";
@@ -14,9 +11,6 @@ const router = express.Router();
 
 router.post("/add", verifyJWT, verifyAdmin, add);
 router.delete("/remove", verifyJWT, verifyAdmin, remove);
-router.get("/borrowed/:studentId", verifyJWT, borrowed);
-router.get("/pending/:studentId", verifyJWT, pending);
-router.get("/denied/:studentId", verifyJWT, denied);
 router.post("/search", verifyJWT, search);
 router.post("/getbookbyid", verifyJWT, getbookbyid);
 router.get("/list", verifyJWT, list);

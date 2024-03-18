@@ -23,7 +23,7 @@ create table auth(
 );
 
 create table book(
-  book_id int(11),
+  book_id int(11) auto_increment,
   title varchar(45),
   author varchar(45),
   genre varchar(10),
@@ -35,18 +35,21 @@ create table book(
   primary key (book_id)
 );
 
-create table transaction(
-  transaction_id varchar(32),
-  student_id varchar(8),
-  admin_id varchar(8),
-  book_id int(11),
-  issue date,
-  due date,
-  status ENUM('pending','approved','denied'),
-  share boolean,
-  foreign key (student_id) references student(student_id),
-  foreign key (admin_id) references admin(admin_id),
-  foreign key (book_id) references book(book_id)
+CREATE TABLE transaction (
+  transaction_id INT AUTO_INCREMENT,
+  student_id VARCHAR(8),
+  admin_id VARCHAR(8),
+  book_id INT(11),
+  issue_date DATE,
+  due_date DATE,
+  status ENUM('pending', 'approved', 'denied'),
+  share BOOLEAN,
+  PRIMARY KEY (transaction_id),
+  FOREIGN KEY (student_id) REFERENCES student(student_id),
+  FOREIGN KEY (admin_id) REFERENCES admin(admin_id),
+  FOREIGN KEY (book_id) REFERENCES book(book_id),
+  UNIQUE KEY unique_student_book (student_id, book_id),
+  CHECK (status IN ('pending', 'approved', 'denied'))
 );
 
 -- get

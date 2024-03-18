@@ -18,6 +18,75 @@ export const request = (req, res) => {
 };
 
 /**
+ * gives list of borrowed books by the user
+ * action by - USER
+ */
+export const borrowed = (req, res) => {
+  const student_id = req.params.studentId;
+
+  const query = `
+      SELECT b.* 
+      FROM book b 
+      JOIN transaction t ON b.book_id = t.book_id 
+      WHERE t.student_id = ? && status='approved';
+  `;
+
+  db.query(query, [student_id], (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length === 0) {
+      return res.status(404).json({ error: "No book borrowed by the student" });
+    }
+    return res.status(200).json(data);
+  });
+};
+
+/**
+ * gives list of pending books by the user
+ * action by - USER
+ */
+export const pending = (req, res) => {
+  const student_id = req.params.studentId;
+
+  const query = `
+      SELECT b.* 
+      FROM book b 
+      JOIN transaction t ON b.book_id = t.book_id 
+      WHERE t.student_id = ? && status='pending';
+  `;
+
+  db.query(query, [student_id], (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length === 0) {
+      return res.status(404).json({ error: "No book pending for the student" });
+    }
+    return res.status(200).json(data);
+  });
+};
+
+/**
+ * gives list of rejected request books by the user
+ * action by - USER
+ */
+export const denied = (req, res) => {
+  const student_id = req.params.studentId;
+
+  const query = `
+      SELECT b.* 
+      FROM book b 
+      JOIN transaction t ON b.book_id = t.book_id 
+      WHERE t.student_id = ? && status='denied';
+  `;
+
+  db.query(query, [student_id], (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length === 0) {
+      return res.status(404).json({ error: "No book denied for the student" });
+    }
+    return res.status(200).json(data);
+  });
+};
+
+/**
  * action after user request for a book
  * @ACTION_BY - ADMIN
  */
