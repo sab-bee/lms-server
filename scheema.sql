@@ -1,11 +1,9 @@
 create table student(
-  student_id varchar(8),
-  primary key (student_id)
+  student_id varchar(8) primary key
 );
 
 create table admin(
-  admin_id varchar(8),
-  primary key (admin_id)
+  admin_id varchar(8) primary key
 );
 
 create table auth(
@@ -23,7 +21,7 @@ create table auth(
 );
 
 create table book(
-  book_id int(11) auto_increment,
+  book_id int(11) auto_increment primary key,
   title varchar(45),
   author varchar(45),
   genre varchar(10),
@@ -32,11 +30,10 @@ create table book(
   desc text,
   stock int,
   borrow_count int,
-  primary key (book_id)
 );
 
 CREATE TABLE transaction (
-  transaction_id INT AUTO_INCREMENT,
+  transaction_id INT AUTO_INCREMENT PRIMARY KEY,
   student_id VARCHAR(8),
   admin_id VARCHAR(8),
   book_id INT(11),
@@ -44,17 +41,17 @@ CREATE TABLE transaction (
   due_date DATE,
   status ENUM('pending', 'approved', 'denied'),
   share BOOLEAN,
-  PRIMARY KEY (transaction_id),
   FOREIGN KEY (student_id) REFERENCES student(student_id),
   FOREIGN KEY (admin_id) REFERENCES admin(admin_id),
   FOREIGN KEY (book_id) REFERENCES book(book_id),
-  UNIQUE KEY unique_student_book (student_id, book_id),
-  CHECK (status IN ('pending', 'approved', 'denied'))
+  UNIQUE KEY unique_student_book (student_id, book_id), -- prevent duplicate request
+
+  -- CHECK (status IN ('pending', 'approved', 'denied')) // either enum or check
 );
 
 -- get
 select * from auth where student_id = '19301142';
-select * from auth where admin_id = '19301142';
+select * from auth where admin_id = 'admin101';
 
 
 -- insert auth
@@ -94,3 +91,4 @@ select  * from book where title like ? or author like ?
 
 --- common commands
 select student_id, admin_id, user_name, email, account_type, join_date, otp from auth;
+select title, book_id, author, genre, edition, stock from book;
