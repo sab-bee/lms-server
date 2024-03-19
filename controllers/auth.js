@@ -140,12 +140,12 @@ export const verifyEmail = (req, res) => {
       async function main() {
         // send mail with defined transport object
         const code = generateRandomCode();
-        const info = await transporter.sendMail({
-          from: '"LMS support" <support@fleyan.com>', // sender address
-          to: req.body.email, // list of receivers
-          subject: "Email Verification", // Subject line
-          html: `<h1>${code}</h1>`, // plain text body
-        });
+        // const info = await transporter.sendMail({
+        //   from: '"LMS support" <support@fleyan.com>', // sender address
+        //   to: req.body.email, // list of receivers
+        //   subject: "Email Verification", // Subject line
+        //   html: `<h1>${code}</h1>`, // plain text body
+        // });
 
         const query = `UPDATE auth SET otp = ? WHERE email = ?`;
 

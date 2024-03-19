@@ -91,3 +91,6 @@ select b.* from book b join transaction t on b.book_id = t.book_id where t.stude
 
 -- includes command
 select  * from book where title like ? or author like ?
+
+--- common commands
+select student_id, admin_id, user_name, email, account_type, join_date, otp from auth;

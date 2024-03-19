@@ -61,16 +61,20 @@ export const remove = (req, res) => {
  * action by - USER
  */
 export const search = (req, res) => {
-  const query = "select * from book where title like ? or author like ?";
-  const value = `%${req.body.query}%`;
-  db.query(query, [value, value], (err, data) => {
-    if (err) return res.status(400).json(err);
-    if (data.length) {
-      return res.status(200).json(data);
-    } else {
-      return res.status(404).json({ message: "no book found" });
+  const query = "select * from book where title rlike ? or author rlike ?";
+  const value = `${req.body.query}`;
+  db.query(
+    query,
+    ["\\b" + value + "\\b", "\\b" + value + "\\b"],
+    (err, data) => {
+      if (err) return res.status(400).json(err);
+      if (data.length) {
+        return res.status(200).json(data);
+      } else {
+        return res.status(404).json({ message: "no book found" });
+      }
     }
-  });
+  );
 };
 
 /**
@@ -114,6 +118,26 @@ export const list = (req, res) => {
     if (err) return res.status(400).json(err);
     if (data.length) {
       return res.status(200).json(data);
+    }
+  });
+};
+
+/**
+ * quick search
+ */
+
+export const quickSearch = (req, res) => {
+  const query = `SELECT *
+  FROM book
+  WHERE title rlike  ?`;
+
+  const value = `${req.body.query}`;
+  db.query(query, ["\\b" + value + "\\b"], (err, data) => {
+    if (err) return res.status(400).json(err);
+    if (data.length) {
+      return res.status(200).json(data);
+    } else {
+      return res.status(404).json({ message: "no book found" });
     }
   });
 };
