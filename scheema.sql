@@ -75,7 +75,7 @@ insert into admin values(
 );
 
 
--- get all the boooks under an user
+-- get the boooks under an user
 SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE student_id = '20245678' && status='pending');
 SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE student_id = '20245678' && status='approved');
 SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE student_id = '20245678' && status='denied');
@@ -85,6 +85,10 @@ SELECT * FROM book WHERE book_id IN (SELECT book_id FROM transaction WHERE stude
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='pending';
 select b.* from book b join transaction t on b.book_id = t.book_id where t.student_id = '20245678' && status='approved';
 
+-- get pending books infos
+
+select b.title, t.book_id, issue_date, due_date, student_id from book b join transaction t on b.b
+ook_id = t.book_id where status='pending';
 
 -- includes command
 select  * from book where title like ? or author like ?
