@@ -28,5 +28,36 @@
     "stock": 12,
     "image": "https://m.media-amazon.com/images/I/51szD9HC9pL._SX342_SY445_.jpg",
     "borrow_count": 0
+  },
+  {
+    "title": "12 Habits Of Valuable Employees",
+    "author": "Kevin Daum",
+    "genre": "Business",
+    "edition": "2nd",
+    "description": "Are you looking to transform your career and achieve your full potential at work? Do you wish your employer recognized your talent and contributions more? This book reveals the insider secrets to becoming the most valued employee.",
+    "stock": 12,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1702497536i/203753360.jpg",
+    "borrow_count": 0
+  },
+
+  {
+    "title": "Jaded",
+    "author": "Ela Lee",
+    "genre": "thriller",
+    "edition": "1st",
+    "description": "A young lawyer wakes up the morning after a work gala with no memory of how she got home the previous night and must figure out what, exactly, happened—and how much she's willing to put up with to make her way to the top of the corporate ladder.",
+    "stock": 12,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1686502907i/176442986.jpg",
+    "borrow_count": 0
+  },
+  {
+    "title": "Calibrated Child",
+    "author": "Sierra Nice",
+    "genre": "",
+    "edition": "2nd",
+    "description": "",
+    "stock": 12,
+    "image": "",
+    "borrow_count": 0
   }
 ]
